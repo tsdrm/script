@@ -24,7 +24,7 @@ start (){
 		exit
 	fi
 
-	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --user=$USER --exec=$DAEMON
+	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --chuid=$USER --exec=$DAEMON
 	echo "$NAME start successful, pid(`cat $PROCESS`)"
 }
 
