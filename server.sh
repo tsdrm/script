@@ -24,8 +24,8 @@ start (){
 		exit
 	fi
 
-	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --chuid=$USER --exec=$DAEMON
-	echo "$NAME start successful, pid(`cat $PROCESS`)"
+	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --user=$USER --exec=$DAEMON
+	test $? -ne 0 || echo "$NAME start successful, pid(`cat $PROCESS`)"
 }
 
 # Stop the server
@@ -34,10 +34,11 @@ stop (){
 	start-stop-daemon --status --pidfile=$PROCESS
 	if [ $? != 0 ]; then
 		echo "$NAME is not running"
+		exit
 	fi
 
 	start-stop-daemon --stop --pidfile=$PROCESS
-	echo "$NAME stop successful"
+	test $? -ne 0 || echo "$NAME stop successful"
 }
 
 # Return the status of the server
