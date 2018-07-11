@@ -30,10 +30,10 @@ elif [[ "" == $server_user ]]; then
 fi
 
 serverd=/etc/init.d/${server_name}d
-cp server.sh $serverd
+cp -f server.sh $serverd
 
-sed -i s/SERVER_NAME/${server_name}/ serverd
-sed -i s/SERVER_USER/$server_user/ serverd
-sed -i s/SERVER_DAEMON/$server_exec/ serverd
+sed -i "s!SERVER_NAME!$server_name!" $serverd
+sed -i "s!SERVER_USER!$server_user!" $serverd
+sed -i "s!SERVER_DAEMON!$server_exec!" $serverd
 
 echo "Install success!!!"
