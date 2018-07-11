@@ -9,6 +9,7 @@ NAME=SERVER_NAME
 USER=SERVER_USER
 DAEMON=SERVER_DAEMON
 PROCESS=/var/run/$NAME.pid
+SERVERPATH=SERVER_PATH
 
 if [ ! -f "$DAEMON" ]; then
 	echo "$DAEMON not found"
@@ -24,7 +25,7 @@ start (){
 		exit
 	fi
 
-	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --user=$USER --exec=$DAEMON
+	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --chuid=$USER --chdir=$SERVERPATH --exec=$DAEMON
 	test $? -ne 0 || echo "$NAME start successful, pid(`cat $PROCESS`)"
 }
 
