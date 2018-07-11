@@ -31,7 +31,9 @@ elif [[ "" == $server_user ]]; then
 	exit 1
 fi
 
-test "" -ne $server_path || server_path=`pwd`
+if [ "" == $server_path ]; then
+	server_path=`pwd`
+fi
 
 
 serverd=/etc/init.d/${server_name}d

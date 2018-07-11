@@ -35,7 +35,6 @@ stop (){
 	start-stop-daemon --status --pidfile=$PROCESS
 	if [ $? != 0 ]; then
 		echo "$NAME is not running"
-		exit
 	fi
 
 	start-stop-daemon --stop --pidfile=$PROCESS
