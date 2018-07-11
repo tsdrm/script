@@ -19,14 +19,12 @@ fi
 start (){
 	# Check serve's status
 	start-stop-daemon --status --pidfile=$PROCESS
-	code=$?
-	if [ code == 0 ]; then
+	if [ $? == 0 ]; then
 		echo "$NAME is already running"
-		exit 0
+		exit
 	fi
 
 	start-stop-daemon --start --make-pidfile --background --pidfile=$PROCESS --user=$USER --exec=$DAEMON
-	res = $?
 	echo "$NAME start successful, pid(`cat $PROCESS`)"
 }
 
@@ -34,10 +32,9 @@ start (){
 stop (){
 	# Check serve's status
 	start-stop-daemon --status --pidfile=$PROCESS
-	code=$?
-	if [ code != 0 ]; then
+	if [ $? != 0 ]; then
 		echo "$NAME is not running"
-		exit 0
+		exit
 	fi
 
 	start-stop-daemon --stop --pidfile=$PROCESS
@@ -47,8 +44,7 @@ stop (){
 # Return the status of the server
 status (){
 	start-stop-daemon --status --pidfile=$PROCESS
-	code=$?
-	if [ code == 0 ]; then
+	if [ $? == 0 ]; then
 		echo "$NAME is running, pid(`cat $PROCESS`)"
 	else
 		echo "$NAME is not running"
