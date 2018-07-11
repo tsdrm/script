@@ -20,17 +20,20 @@ echo "Received: server_name: $server_name, server_user: $server_user, server_exe
 
 if [[ "" == $server_name ]]; then
 	echo "Invalid name"
+	exit 1
 elif [[ "" == $server_exec ]]; then
 	echo "Invalid exec"
+	exit 1
 elif [[ "" == $server_user ]]; then
 	echo "Invalid user"
+	exit 1
 fi
 
 serverd=/etc/init.d/${server_name}d
-cp server.sh serverd
+cp server.sh $serverd
 
-sed 's/SERVER_NAME/server_name/' serverd
-sed 's/SERVER_USER/server_user/' serverd
-sed 's/SERVER_DAEMON/server_exec/' serverd
+sed -i s/SERVER_NAME/${server_name}/ serverd
+sed -i s/SERVER_USER/$server_user/ serverd
+sed -i s/SERVER_DAEMON/$server_exec/ serverd
 
 echo "Install success!!!"
