@@ -13,3 +13,4 @@ Usage:
 Developing
 
 - [ ] Uninstall the server
+- [ ] Server start on boot
