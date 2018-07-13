@@ -6,7 +6,7 @@ show_usage() {
  -u|--user%-8schange to user before starting process\n\
  -n|--name%-8sprocess name\n\
  -e|--exec%-8sexecutable file path\n\
- -d|--chdir%-7sthe boot path of a program\n\
+ -d|--chdir%-7sthe boot path of the program\n\
  -h|--help%-8sfor help\n"
 }
 
