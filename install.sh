@@ -6,7 +6,8 @@ show_usage() {
  -u|--user%-8schange to user before starting process\n\
  -n|--name%-8sprocess name\n\
  -e|--exec%-8sexecutable file path\n\
- -d|--chdir%-7sthe boot path of a program\n"
+ -d|--chdir%-7sthe boot path of a program\n\
+ -h|--help%-8sfor help\n"
 }
 
 
@@ -21,6 +22,7 @@ while [ -n "$1" ]; do
 		-u|--user ) server_user=$2 ; shift 2;;
 		-e|--exec ) server_exec=$2 ; shift 2;;
 		-d|--chdir ) server_path=$2 ; shift 2;;
+		-h|--help ) show_usage ; exit 0;;
 		* ) echo show_usage; exit 1 ;;
 	esac
 done
