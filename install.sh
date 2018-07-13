@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 
-show_usage="./install.sh -u(--user) user -n(--name) name -e(--exec) exec" 
+show_usage() {
+        printf "./install.sh -u tangs -e /tmp/process -n process\n\
+ -u|--user%-8schange to user before starting process\n\
+ -n|--name%-8sprocess name\n\
+ -e|--exec%-8sexecutable file path\n\
+ -d|--chdir%-7sthe boot path of a program\n"
+}
+
 
 server_name=""
 server_user=""
@@ -14,7 +21,7 @@ while [ -n "$1" ]; do
 		-u|--user ) server_user=$2 ; shift 2;;
 		-e|--exec ) server_exec=$2 ; shift 2;;
 		-d|--chdir ) server_path=$2 ; shift 2;;
-		* ) echo $show_usage; exit 1 ;;
+		* ) echo show_usage; exit 1 ;;
 	esac
 done
 

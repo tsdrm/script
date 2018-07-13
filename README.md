@@ -7,7 +7,7 @@ About Script: It's a sample scipt to install/uninstall the server on Ubuntu.
 ```
 #### Install the service
 Usage:
-    ./install.sh -u tangs -e /tmp/process -n process
+    ./install.sh -u tangs -e /tmp/process -n process -d /home/tangs/process
 	
 ```
 Developing
