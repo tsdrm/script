@@ -45,7 +45,7 @@ if [ "" == $server_path ]; then
 fi
 
 
-serverd=/etc/init.d/${server_name}d
+serverd=/etc/init.d/${server_name}
 cp -f server.sh $serverd
 
 sed -i "s!SERVER_NAME!$server_name!" $serverd
@@ -53,4 +53,4 @@ sed -i "s!SERVER_USER!$server_user!" $serverd
 sed -i "s!SERVER_DAEMON!$server_exec!" $serverd
 sed -i "s!SERVER_PATH!$server_path!" $serverd
 
-echo "Install success!!!"
+echo "Install successfully!!!"
