@@ -7,10 +7,16 @@ About Script: It's a sample scipt to install/uninstall the server on Ubuntu.
 ```
 #### Install the service
 Usage:
-    ./install.sh -u tangs -e /tmp/process -n process -d /home/tangs/process
+    ./install.sh -u tangs -e /tmp/yourExec -n yourServiceName -d /home/tangs/yourServiceStartDir
+    
+#### Uninstall the service
+Usage:
+    ./uninstall.sh -n yourServiceName
+    
+`./install.sh --help` or `./uninstall.sh --help` for detail.
 	
 ```
 Developing
 
-- [ ] Uninstall the server
+- [x] Uninstall the server
 - [ ] Server start on boot
