@@ -19,4 +19,4 @@ Usage:
 Developing
 
 - [x] Uninstall the server
-- [ ] Server start on boot
+- [ ] Server start on booting
