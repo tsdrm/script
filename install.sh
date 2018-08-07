@@ -7,6 +7,7 @@ show_usage() {
  -n|--name%-8sprocess name\n\
  -e|--exec%-8sexecutable file path\n\
  -d|--chdir%-7sthe boot path of the program\n\
+ -b|--boot%-8the service starts up automatically\n\
  -h|--help%-8sfor help\n"
 }
 
@@ -15,6 +16,7 @@ server_name=""
 server_user=""
 server_exec=""
 server_path=""
+server_boot=""
 
 while [ -n "$1" ]; do
 	case "$1" in
@@ -22,6 +24,7 @@ while [ -n "$1" ]; do
 		-u|--user ) server_user=$2 ; shift 2;;
 		-e|--exec ) server_exec=$2 ; shift 2;;
 		-d|--chdir ) server_path=$2 ; shift 2;;
+		-b|--boot ) server_boot="1" ; shift 1;;
 		-h|--help ) show_usage ; exit 0;;
 		* ) echo show_usage; exit 1 ;;
 	esac
@@ -52,5 +55,10 @@ sed -i "s!SERVER_NAME!$server_name!" $serverd
 sed -i "s!SERVER_USER!$server_user!" $serverd
 sed -i "s!SERVER_DAEMON!$server_exec!" $serverd
 sed -i "s!SERVER_PATH!$server_path!" $serverd
+
+if [ $server_boot == "1" ]; then
+    update-rc.d $server_name defaults
+fi
+
 
 echo "Install successfully!!!"

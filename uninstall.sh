@@ -11,18 +11,19 @@ show_usage() {
 server_name=""
 while [ -n "$1" ]; do
 	case "$1" in
-		-n|--name ) server_name=$1 ; shift 1;;
+		-n|--name ) server_name=$2 ; shift 2;;
 		-h|--help ) echo show_usage ; exit 0;;
-		* ) echo show_usage; exit 1 ;;
+		* ) show_usage; exit 1 ;;
 	esac
 done
 
-if [[] "" == $server_name ]];then
-    echo "Invalid server"
+if [[ "" == $server_name ]];then
+    echo "Uninstall server: Invalid server"
     exit 1
 fi
 
 echo "Uninstalling server $server_name"
 
+update-rc.d -f $server_name remove
 rm -f /etc/init.d/$server_name
 echo "Uninstall server $server_name successfully!!!"
