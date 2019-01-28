@@ -18,17 +18,47 @@ export_name=name$(date "+%Y-%m-%d-%H-%M-%S")
 export_file=1
 # if 1, backup the mysql.
 export_mysql=1
+final_folder=$export_folder/$export_name
+final_mysql_file=$export_folder/$mysql_export_file
 
+
+# Start exec the backup script.
+echo "backup script start"
 source first.sh
 
-final_folder=$export_folder/$export_name
+backup_file () {
+    echo "Start backup the file"
+    if [ ! -d "$export_folder" ];then
+        mkdir $final_folder
+    fi
+
+    for folder in ${folders[@]}; do
+        echo "cp -rf $folder $final_folder"
+        cp -rf $folder $final_folder
+    done
+    echo "Backup the file have finished"
+}
+
+backup_mysql () {
+    echo "Start backup the mysql"
+    if [ ! -d "$export_folder" ]; then
+        mkdir $export_folder
+    fi
+
+    for name in ${mysql_db_names[@]}; do
+        mysqldump --default-extra-file=$mysql_extra_file $name > $final_mysql_file
+    done
+    echo "Backup the mysql have finished"
+}
+
+
 
 if [ $export_file == "1" ]; then
-    file
+    backup_file
 fi
 
 if [ $export_mysql == "1" ]; then
-    mysql
+    backup_mysql
 fi
 
 # package
@@ -36,26 +66,4 @@ zip -r $final_folder.zip $final_folder
 
 source last.sh
 
-file () {
-    echo "Start backup the file"
-    if [ ! -d "$export_folder" ];then
-        mkdir $final_folder
-    fi
-
-    for folder in ${folders[@]}; do
-        cp -rf $folder $export_folder
-    done
-    echo "Backup the file have finished"
-}
-
-mysql () {
-    echo "Start backup the mysql"
-    if [ ! -d "$export_folder" ]; then
-        mkdir $export_folder
-    fi
-
-    for name in ${mysql_db_names[@]}; do
-        mysqldump --default-extra-file=$mysql_extra_file $name > $mysql_export_file
-    done
-    echo "Backup the mysql have finished"
-}
+echo "backup script finished"
