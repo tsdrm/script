@@ -1,4 +1,4 @@
-# script
+# script/service
 
 A script for installation service
 
