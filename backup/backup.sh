@@ -28,7 +28,7 @@ source first.sh
 
 backup_file () {
     echo "Start backup the file"
-    if [ ! -d "$export_folder" ];then
+    if [ ! -d "$final_folder" ];then
         mkdir $final_folder
     fi
 
@@ -41,8 +41,8 @@ backup_file () {
 
 backup_mysql () {
     echo "Start backup the mysql"
-    if [ ! -d "$export_folder" ]; then
-        mkdir $export_folder
+    if [ ! -d "$final_mysql_file" ]; then
+        mkdir $final_mysql_file
     fi
 
     for name in ${mysql_db_names[@]}; do
@@ -53,16 +53,17 @@ backup_mysql () {
 
 
 
-if [ $export_file == "1" ]; then
+if [ "$export_file" == "1" ]; then
     backup_file
 fi
 
-if [ $export_mysql == "1" ]; then
+if [ "$export_mysql" == "1" ]; then
     backup_mysql
 fi
 
 # package
-zip -r $final_folder.zip $final_folder
+cd $export_folder
+zip -r $final_folder.zip $export_name
 
 source last.sh
 
