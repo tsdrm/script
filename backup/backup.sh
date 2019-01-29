@@ -2,6 +2,8 @@
 
 set -e
 
+# the name of export package.
+export_name=name$(date "+%Y-%m-%d-%H-%M-%S")
 # source folder which will be backup
 folders=()
 # database name which will be backup
@@ -12,14 +14,11 @@ mysql_extra_file=
 mysql_export_file=
 # the folder to save the backup data.
 export_folder=/tmp/databackup
-# the name of export package.
-export_name=name$(date "+%Y-%m-%d-%H-%M-%S")
 # if 1, backup the file.
 export_file=1
 # if 1, backup the mysql.
 export_mysql=1
 final_folder=$export_folder/$export_name
-final_mysql_file=$export_folder/$mysql_export_file
 
 
 # Start exec the backup script.
@@ -41,12 +40,13 @@ backup_file () {
 
 backup_mysql () {
     echo "Start backup the mysql"
-    if [ ! -d "$final_mysql_file" ]; then
-        mkdir $final_mysql_file
+    if [ ! -d "$final_folder" ]; then
+        mkdir $final_folder
     fi
 
     for name in ${mysql_db_names[@]}; do
-        mysqldump --default-extra-file=$mysql_extra_file $name > $final_mysql_file
+        echo "mysqldump --defaults-extra-file=$mysql_extra_file $name > $final_folder/$name.sql"
+        mysqldump --defaults-extra-file=$mysql_extra_file $name > $final_folder/$name.sql
     done
     echo "Backup the mysql have finished"
 }
