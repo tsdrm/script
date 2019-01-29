@@ -65,6 +65,7 @@ fi
 cd $export_folder
 zip -r $final_folder.zip $export_name
 
+cd -
 source last.sh
 
 echo "backup script finished"
