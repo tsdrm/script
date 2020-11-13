@@ -50,6 +50,7 @@ fi
 
 serverd=/etc/init.d/${server_name}
 cp -f server.sh $serverd
+chmod +x $serverd
 
 sed -i "s!SERVER_NAME!$server_name!" $serverd
 sed -i "s!SERVER_USER!$server_user!" $serverd
